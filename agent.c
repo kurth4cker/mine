@@ -22,12 +22,18 @@
 #    else
 #        define PRINTF_FORMAT(STRING_INDEX, FIRST_TO_CHECK) __attribute__ ((format (printf, STRING_INDEX, FIRST_TO_CHECK)))
 #    endif // __MINGW_PRINTF_FORMAT
+
+#define UNREACHABLE(...) do { \
+	panic(__FILE__, __LINE__, "UNREACHABLE", __VA_ARGS__); \
+	__builtin_unreachable(); \
+} while (0)
+
 #else
 //   TODO: implement PRINTF_FORMAT for MSVC
 #    define PRINTF_FORMAT(STRING_INDEX, FIRST_TO_CHECK)
+#define UNREACHABLE(...) panic(__FILE__, __LINE__, "UNREACHABLE", __VA_ARGS__)
 #endif
 
-#define UNREACHABLE(...) panic(__FILE__, __LINE__, "UNREACHABLE", __VA_ARGS__)
 
 void panic(const char *file, int line, const char *label, const char *fmt, ...) PRINTF_FORMAT(4, 5);
 void panic(const char *file, int line, const char *label, const char *fmt, ...)
@@ -139,8 +145,8 @@ void parse_board(String_View sv, char *board, int *cur_row, int *cur_col)
             board[row*BOARD_COLS + col] = c;
         }
     }
-    assert(cur_row >= 0);
-    assert(cur_col >= 0);
+    assert(*cur_row >= 0);
+    assert(*cur_col >= 0);
 }
 
 void trace_board(char *board, size_t cur_row, size_t cur_col)
