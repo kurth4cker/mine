@@ -331,19 +331,19 @@ begin
    begin
       Read(Cmd);
       case Cmd of
-         'w': begin
+         'w', 'k': begin
                  MoveUp(MainField);
                  FieldRedisplay(MainField);
               end;
-         's': begin
+         's', 'j': begin
                  MoveDown(MainField);
                  FieldRedisplay(MainField);
               end;
-         'a': begin
+         'a', 'h': begin
                  MoveLeft(MainField);
                  FieldRedisplay(MainField);
               end;
-         'd': begin
+         'd', 'l': begin
                  MoveRight(MainField);
                  FieldRedisplay(MainField);
               end;
