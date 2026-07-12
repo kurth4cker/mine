@@ -9,9 +9,6 @@ on:
       - "ci-*"
   pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 18 * * 0"
-
 
 
 jobs:
